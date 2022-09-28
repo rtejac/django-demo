@@ -1,0 +1,338 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home page</title>
+<!--link rel="stylesheet" href="{%static 'css/Style.css' %}"
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap" rel="stylesheet"-->
+<script>
+
+function OnSubmit(){
+
+  var SubmitButtonElement = document.getElementById("SubmitButton");
+  SubmitButtonElement.style.display = "none";
+
+  var ResetButtonElement = document.getElementById("ResetButton");
+  ResetButtonElement.style.display = "none";
+
+  var SubmittingNote = document.getElementById("SubmitNote");
+  SubmittingNote.style.display = "inline";
+
+  //alert("Please wait...\nThis process will take some time which is dependent on Workload");
+
+  return false;
+
+
+}
+
+</script>
+
+
+
+<style>
+
+/*
+.left{
+  text-align: left;
+}
+*/
+a{
+
+  /*border: 1px solid skyblue;*/
+  padding:15px;
+  padding-left: 150px;
+  padding-right: 150px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a:link{
+	color: white;
+}
+a:hover{
+  color: green;
+}
+
+h1{
+  background-color: #0080FF;
+  color: white;
+  padding: 15px;
+  font-size: 20px;
+  text-align: center;
+}
+
+table,th,td{
+  text-align: center;
+  align-self: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+}
+
+#left{
+
+  text-align: left;
+}
+#SubmitNote{
+  display: none;
+}
+
+</style>
+
+	</head>
+	<body>
+
+		<table style="background-color: #0080FF;width:100%">
+			<tr><td><img src="{%static 'css/intel_logo.jpg' %}"  height="50px" alt=""></td>
+	<td><h1 style="font-size:30px;">Intel&reg; Edge Software Manager</h1></td></tr>
+</table>
+
+<table style="background-color: #0080FF;width:100%">
+<tr><td>
+	<h3 style="width:100%" style="margin-left:auto;margin-right:auto;">
+		<a href="#optimize"  style="margin-left:auto;margin-right:auto;">Configure</a>
+		<a href="#optimize" style="margin-left:auto;margin-right:auto;color:white;">Optimize</a>
+		<a href="#apply" style="margin-left:auto;margin-right:auto;">Deploy</a>
+		<a href="#optimize" style="margin-left:auto;margin-right:auto;">Monitor</a></h3>
+</td></tr>
+</table>
+
+
+	<h2 id="optimize" style="text-align:center">Platform Auto tuning</h2>
+
+<table id="main">
+	<tr>
+		<td width="20%" height="100%" style="background-color:#0080FF">
+<p>IoTG Edge platforms like CoffeeLake, TigerLake offer various control knobs (Hardware, Hypervisor, Operating System) to suitably tune to achieve optimal performance.</p>
+  <p>Identifying the knobs and assigning the right values require high level of domain expertise or trial and error experiments including reboots for settings to take effect.
+    The tuning values are dependent on the choice of workloads; hence a one-size fits all approach would not be effective.</p>
+  <h3>Solution</h3>
+  <p>Leverage a suitable hyperparameter optimization techniques (like AutoML) along with an automation framework to converge on the correct values for tuning the knobs.</p>
+<p>Platform Auto Tuning framework uses Optuna, an open source Hyperparameter optimization toolkit and enables the efficient searching of optimal tuning parameters within a limited number of cycles.
+</p>
+
+	<table>
+    <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+		<caption>Few parameters at different levels</caption>
+		<tr>
+			<th>Level</th>
+			<th>parameters</th>
+		</tr>
+		<tr>
+			<td>Application</td>
+			<td>Device,Data type,etc</td>
+		</tr>
+		<tr>
+			<td>OS</td>
+				<td>VM swapnwss,Kernel numa balancing,etc</td>
+		</tr>
+		<tr>
+			<td>Hardware</td>
+			<td>Clock mudulation,Energy bias,etc</td>
+		</tr>
+	</table>
+
+</td>
+<td>
+
+<table id = "left" style="text-align: right;">
+	<caption align:center><b>Choose the options for Platform Auto Tuning</b></caption>
+	<form action='optimize' method="POST">
+
+		{% csrf_token %}
+	<tr>
+		<th>&nbsp;</th>
+		<th>&nbsp;</th>
+		</tr>
+
+
+<tr>
+	<td id="left">
+	<label for="host">DUT IP </label></td>
+	<td><input type="text" name="host"></td>
+	</tr>
+
+
+	<tr>
+		<td id="left">
+
+	<label for="username">Username</label></td>
+	<td><input id = "username" type="text" name="un"></td>
+</tr>
+
+	<tr>
+		<td  id="left">
+
+	<label for="password">Password</label></td>
+	<td><input type="password" name="pw"></td>
+
+	</tr>
+
+
+	<tr>
+		<td id="left">
+	<label for="Tuning file">Tuning File (YAML)</label></td>
+	<td><input name="Tuning file">
+	</td>
+	</tr>
+
+
+	<tr>
+		<td id="left">
+	<label for="Config file">Config File (YAML)</label></td>
+	<td><input name="Config file">
+	</td>
+	</tr>
+
+
+
+	<tr>
+		<td id="left">
+	<label for="Application Tuning">Application Tuning</label></td>
+	<td>Yes
+	<input type="radio" id="Yes" name="Application Tuning" value="yes">
+	No
+	<input type="radio" id="No" name="Application Tuning" value="no"></td>
+
+	</tr>
+	<tr>
+		<td id="left">
+	<label for="OS Tuning">OS Tuning</label></td>
+	<td>Yes
+	<input type="radio" id="Yes" name="OS Tuning" value="yes">
+	No
+	<input type="radio" id="No" name="OS Tuning" value="no"></td>
+</tr>
+
+	<tr>
+		<td id="left">
+	<label for="Hardware Tuning">Hardware Tuning</label></td>
+	<td>Yes
+	<input type="radio" id="Yes" name="Hardware Tuning" value="yes">
+	No
+	<input type="radio" id="No" name="Hardware Tuning" value="no"></td>
+</tr>
+
+<tr>
+  <td id="left">
+<label for="direction">Maximize/Minimize</label></td>
+<td>
+<select name="direction" id="direction">
+  <option value="None">Select</option>
+  <option value="maximize">Maximize</option>
+  <option value="minimize">Minimize</option>
+</select>
+</td></tr>
+
+<tr><td id="left">
+	<label for="trials">Trials</label></td>
+	<td>
+    <select name="trials" id="trials">
+      <option value="None">Select</option>
+      <option value="2">2</option>
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="30">30</option>
+      <option value="40">40</option>
+      <option value="50">50</option>
+      <option value="60">60</option>
+      <option value="70">70</option>
+      <option value="80">80</option>
+      <option value="90">90</option>
+      <option value="100">100</option>
+      <option value="200">200</option>
+      <option value="300">300</option>
+      <option value="500">500</option>
+      <option value="1000">1000</option>
+    </select>
+	</td>
+</tr>
+<tr>
+  <td id="left">
+<label for="cmp_base">Compare with base ?</label></td>
+<td>Yes
+<input type="radio" id="Yes" name="cmp_base" value="yes">
+No
+<input type="radio" id="No" name="cmp_base" value="no"></td>
+</tr>
+<tr>
+  <td id="left">
+<label for="Reboot">Reboot (Choose only when required)</label></td>
+<td>Yes
+<input type="radio" id="Yes" name="reboot" value="yes">
+No
+<input type="radio" id="No" name="reboot" value="no"></td>
+
+</tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr>
+  <td></td>
+	<td>	<input type="reset" id="ResetButton" value="Reset">
+	<input type="submit" id="SubmitButton" onclick="OnSubmit()" value="Start Tuning">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+
+
+</form>
+
+</table>
+
+<b id="SubmitNote">
+  <img src="https://miro.medium.com/max/882/1&#42;9EBHIOzhE1XfMYoKz1JcsQ.gif" alt="loading animation" class="center">
+  Please wait, As this process will take some time that is dependent on Workload.</b>
+</td>
+</tr>
+<tr>
+  <td></td>
+  <td>
+    <form  action="hadfile" method="post">
+
+          {% csrf_token %}
+
+      <p>Already had the tuned file?</p><p>Click on <input type="submit" value="Apply"> and enter the details to applly changes</p>
+    </form></td>
+</tr>
+</table>
+
+
+
+
+<table>
+
+
+</table>
+</body>
+</html>
+
+
+
+
+<!--
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <input type="number" name="trials" min="2" max="100">
+
+
+<select name="Tuning file" id="Tuning file">
+  <option value="None">Select</option>
+  <option value="Tuning_Squeezenet.yaml">Tuning Squeezenet</option>
+  <option value="Tuning_Edge.yaml">Tuning Edge</option>
+</select>
+
+
+<select name="Config file" id="Config file">
+  <option value="None">Select</option>
+  <option value="Config_Squeezenet.yaml">Config Squeezenet</option>
+  <option value="Config_Edge.yaml">Config Edge</option>
+</select>
+
+-->

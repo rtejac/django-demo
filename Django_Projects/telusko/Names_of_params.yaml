@@ -1,0 +1,14 @@
+FPS/Parameter Values:
+- swappiness
+- compact_memory
+- dirty_background_ratio
+- dirty_ratio
+- dirty_writeback_centisecs
+- numa_balancing
+- numa_balancing_scan_period_min_ms
+- numa_balancing_scan_delay_ms
+- numa_balancing_scan_period_max_ms
+- sched_latency_ns
+- sched_migration_cost_ns
+- sched_min_granularity_ns
+- sched_wakeup_granularity_ns

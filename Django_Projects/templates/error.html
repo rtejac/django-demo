@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ouch...Something went Wrong</title>
+
+<style>
+a{
+
+  /*border: 1px solid skyblue;*/
+  padding:15px;
+  padding-left: 150px;
+  padding-right: 150px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a:link{
+	color: white;
+}
+a:hover{
+  color: green;
+}
+
+h1{
+  background-color: #0080FF;
+  color: white;
+  padding: 15px;
+  font-size: 20px;
+  text-align: center;
+}
+
+table,th,td{
+  text-align: center;
+  align-self: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+}
+
+}
+
+</style>
+
+</head>
+	<body>
+
+		<table style="background-color: #0080FF;width:100%">
+			<tr><td><img src="{%static 'css/intel_logo.jpg' %}"  height="50px" alt=""></td>
+	<td><h1 style="font-size:30px;">Intel&reg; Edge Software Manager</h1></td></tr>
+</table>
+
+<h2 style="text-align:center">Platform Auto tuning</h2>
+
+
+    <b>{{message}}</b>
+    {{extra}}
+    <ul>
+
+    {% for i in extra %}
+      <li>{{ i }}</li>
+    {% endfor %}
+
+  </ul>
+    <form action="repeat">
+      {% csrf_token %}
+      <input type="submit" name="repeat" value="<< Back">
+    </form>
+
+
+
+</body>
+</html>

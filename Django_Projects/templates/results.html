@@ -1,0 +1,228 @@
+{% load static %}
+
+
+
+<html>
+
+<head>
+  <title>Results of Platform Auto Tuning</title>
+
+
+  <script>
+
+  function OnSubmit(){
+
+    var DownloadButtonElement = document.getElementById("DownloadButton");
+    DownloadButtonElement.style.display = "none";
+
+    var DownloadNote = document.getElementById("DownloadNote");
+    DownloadNote.style.display = "inline";
+
+    alert("Please wait...\nThis process will take some time which is dependent on Workload");
+
+    return false;
+
+
+  }
+
+
+  </script>
+
+
+
+  <style>
+    p{
+      font-size:20px;
+    }
+    h1{
+      background-color: #0080FF;
+      color: white;
+      padding: 15px;
+      font-size: 20px;
+      text-align: center;
+    }
+      table[id='res'] ,th[id='res'],td[id='res']{
+        text-align: center;
+        align-self: auto;
+        border: 1px solid black;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      table[id='res']{border-collapse: collapse;}
+
+      a{
+
+        /*border: 1px solid skyblue;*/
+        padding:15px;
+        padding-left: 150px;
+        padding-right: 150px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+
+      a:hover{
+        color: green;
+      }
+
+      form{
+        display:inline;
+        align:center;
+      }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+      #DownloadNote{
+        display: none;
+      }
+      #center{
+        text-align:center;
+      }
+
+  </style>
+</head>
+
+<body>
+  <table style="background-color: #0080FF;width:100%">
+    <tr><td><img src="{%static 'css/intel_logo.jpg' %}"  height="50p" alt=""></td>
+<td><h1 style="font-size:30px">Intel&reg; Edge Software Manager</h1></td></tr>
+</table>
+
+<table style="background-color: #0080FF;width:100%">
+<tr><td>
+<h3 style="width:100%" style="margin-left:auto;margin-right:auto;">
+  <a href="#optimize"  style="margin-left:auto;margin-right:auto;">Configure</a>
+  <a href="#optimize" style="margin-left:auto;margin-right:auto;">Optimize</a>
+  <a href="#optimize" style="margin-left:auto;margin-right:auto;">Deploy</a>
+  <a href="#optimize" style="margin-left:auto;margin-right:auto;">Monitor</a></h3>
+</td></tr>
+</table>
+
+
+  <h2 id="optimize" style="text-align:center">Results</h2>
+  <h3 style="text-align:center">Workload : {{workload}}</h3>
+
+{% if dir == 'maximize' %}
+  {% if cmp_base == 'yes' %}
+    <p  style="text-align:center;">Maximum FPS acheived is <b>{{fps}} FPS</b> Base performance was <b>{{base}}</b> and improvment was <b>{{improvment}} %</b></p>
+  {% else %}
+    <p  style="text-align:center;">Maximum FPS acheived is <b>{{fps}} FPS</b></p>
+  {% endif %}
+{% else %}
+  {% if base == 'yes' %}
+    <p  style="text-align:center;">Minimum FPS acheived is <b>{{fps}} FPS</b> Base performance was <b>{{base}}</b> and improvment was <b>{{improvment}} %</b></p>
+  {% else %}
+    <p  style="text-align:center;">Minimum FPS acheived is <b>{{fps}} FPS</b></p>
+  {% endif %}
+{% endif %}
+
+<table>
+  <tr><td>
+    <p align="center">Plot of iterations vs FPS and Best</p>
+    <p><img src="{%static 'css/graph.png' %}" alt="Graph should be there here"></p>
+    </td>
+
+<td>
+  <p style="text-align:center;">Optimized parameters</p>
+<table>
+
+    <tr>
+    <th>Parameter</th>
+    <th>Best value suggested</th>
+  </tr>
+  <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+  {% for key, value in k.items %}
+    <tr>
+        <td id="left"> {{ key }} </td>
+        <td id="center"> {{ value }} </td>
+    </tr>
+{% endfor %}
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+<tr><td>
+<form action="repeat">
+  {% csrf_token %}
+    <input type="submit" name="repeat" value="Repeat Tuning">
+</form>
+<form action="view_all">
+  {% csrf_token %}
+    <input type="submit" name="view_all" value="View All">
+</form>
+
+</td>
+<td>
+<form action="download">
+  {% csrf_token %}
+    <input type="submit" id="DownloadButton" name="download" id="OnClick" value="Download Config file">
+    <b id="DownloadNote">Config File has been downloaded</b>
+</form></td></tr>
+<!-- <tr>
+  <td></td>
+  </tr> -->
+</table>
+
+<!--
+<table>
+
+<tr>
+  <td>
+<table style="margin-left=auto;margin-right=auto;">
+
+	<h2 id="apply" style="text-align:center">Apply Tuned file to the platform</h2>
+  <form  action="apply" method="post">
+
+        {% csrf_token %}
+      <tr>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+        </tr>
+
+        <tr>
+        	<td id="left">
+        	<label for="host">DUT IP </label></td>
+        	<td><input type="text" name="host"></td>
+        	</tr>
+
+
+        	<tr>
+        		<td id="left">
+
+        	<label for="username">Username</label></td>
+        	<td><input id = "username" type="text" name="un"></td>
+        </tr>
+
+        	<tr>
+        		<td  id="left">
+
+        	<label for="password">Password</label></td>
+        	<td><input type="password" name="pw"></td>
+
+        	</tr>
+    <tr>
+      <td id="left">
+      <label for="tuning">Tuning File (YAML)</label></td>
+      <td><input id="tuning" type="text" name="tuning"></td>
+      </tr>
+
+
+      <tr>
+        <td id="left">
+
+      <label for="knobes">Knobes File</label></td>
+      <td><input id = "knobes" type="text" name="knobes"></td>
+    </tr>
+    <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+    <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+    <tr><td></td><td>
+    &nbsp;&nbsp;&nbsp;<input type="submit" id="SubmitButton" value="Apply Tuned Values">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+  </form>
+
+</table>
+</td>
+</tr> -->
+</table>
+</body>
+</html>

@@ -1,0 +1,15 @@
+Device
+swappiness
+dirty_background_ratio
+dirty_ratio
+overcommit_ratio
+dirty_writeback_centisecs
+numa_balancing
+numa_balancing_scan_period_min_ms
+numa_balancing_scan_delay_ms
+numa_balancing_scan_period_max_ms
+sched_latency_ns
+sched_migration_cost_ns
+sched_min_granularity_ns
+numa_balancing_scan_size_mb
+sched_wakeup_granularity_ns

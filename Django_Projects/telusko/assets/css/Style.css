@@ -1,0 +1,45 @@
+body{
+
+  background-color : white;
+
+}
+
+
+
+div.left{
+  display: inline;
+  background-color: black;
+  color: white;
+
+}
+.left{
+  background-color: blue;
+}
+a{
+
+  border: 1px solid skyblue;
+  padding:15px;
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+a:hover{
+  color: green;
+}
+
+h1{
+  background-color: #0080FF;
+  color: white;
+  padding: 15px;
+  font-size: 20px;
+  text-align: center;
+}
+
+table ,th,td{
+  text-align: center;
+  align-self: auto;
+  border: 1px solid black;
+  margin-left: auto;
+  margin-right: auto;
+}
+table{border-collapse: collapse;}

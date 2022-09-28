@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style >
+      table, td, th {
+        border: 1px solid black;
+        margin-left: auto;
+        margin-right: auto;
+        text-align:center;
+      }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+    </style>
+  </head>
+  <body>
+    <p>Below is the list of performances we got w.r.t different values suggested by tool</p>
+
+    <table id="iter">
+
+        {% for key, value in names.items %}
+        <tr id="iter">
+          <td id="iter"> {{ key }}</td>
+
+
+        {% for i in value %}
+        <td id="iter"> {{ i }} </td>
+
+        {% endfor %}
+        </tr>
+        {% endfor %}
+      {% for key, value in iter_data.items %}
+      <tr id="iter">
+        <td id="iter"> {{ key }}</td>
+
+      {% for i in value %}
+      <td id="iter"> {{ i }} </td>
+
+      {% endfor %}
+      </tr>
+    {% endfor %}
+
+    </table>
+
+  </body>
+</html>
